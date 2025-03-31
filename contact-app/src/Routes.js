@@ -13,6 +13,7 @@ import Flights from "./components/Transport/Flights";
 import Login from "./components/Auth/Login";
 import Sign_up from "./components/Auth/Sign_up";
 import SideBar from "./components/Slidebar/Slidebar";
+import EventPlanner from "./components/event planner/EventPlanner";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
   {
     path: "/transport/flights",
     element: <Flights />
+  },
+  {
+    path: "/eventplanner",
+    element: <EventPlanner />
   },
 
 ]);
