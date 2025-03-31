@@ -1,0 +1,107 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  
+  .flights-page-wrapper {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  .details-container h2 {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 2rem;
+  }
+  
+  .table-wrapper {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto; /* Ensures table is scrollable on smaller screens */
+    width: auto;
+  }
+  
+  .flight-table {
+    width: auto; /* More flexible for different screen sizes */
+    max-width: 1000px; /* Prevents it from getting too large */
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 1em;
+    min-width: 300px;
+    border-radius: 5px 5px 0px 0px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .flight-table p{
+    font-weight: bold;
+    padding-right: 0px;
+  }
+  /* .flight-table td{
+    font-weight: bold;
+    padding-right: 0px;
+  } */
+  
+  .flight-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+  }
+  
+  .flight-table th, .flight-table td {
+    padding: 12px 15px;
+    text-align: left; /* Centering content */
+  }
+  
+  .flight-table tbody{
+    width: auto;
+  }
+  .flight-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+  }
+  
+  .flight-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+  
+  .flight-table tbody tr:last-of-type {
+    /* border-bottom: 2px solid #009879; */
+  }
+  .flight-table tbody tr td:last-of-type {
+    /* border-bottom: 2px solid #009879; */
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .flight-table {
+      width: 95%; /* Full width on smaller screens */
+      font-size: 0.9em; /* Reduce font size for readability */
+    }
+  
+    .flight-table th, .flight-table td {
+      padding: 8px; /* Reduce padding */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .details-container h2 {
+      font-size: 1.5rem; /* Adjust heading size */
+    }
+  
+    .flight-table {
+      font-size: 0.8em; /* Further reduce font size */
+    }
+  
+    .flight-table th, .flight-table td {
+      padding: 5px; /* Reduce padding more */
+    }
+  }
+  

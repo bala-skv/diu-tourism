@@ -1,0 +1,91 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.buses-page-wrapper {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+.details-container h2 {
+  color: black;
+  /* margin-top: 10px; */
+  margin-bottom: 0px;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.table-wrapper {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto; /* Ensures table is scrollable on smaller screens */
+  width: 100%;
+}
+
+.bus-table {
+  width: 80%; /* More flexible for different screen sizes */
+  max-width: 1000px; /* Prevents it from getting too large */
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 1em;
+  min-width: 300px;
+  border-radius: 5px 5px 0px 0px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.bus-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+.bus-table th, .bus-table td {
+  padding: 12px 15px;
+  text-align: center; /* Centering content */
+}
+
+.bus-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.bus-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.bus-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .bus-table {
+    width: 95%; /* Full width on smaller screens */
+    font-size: 0.9em; /* Reduce font size for readability */
+  }
+
+  .bus-table th, .bus-table td {
+    padding: 8px; /* Reduce padding */
+  }
+}
+
+@media (max-width: 480px) {
+  .details-container h2 {
+    font-size: 1.5rem; /* Adjust heading size */
+  }
+
+  .bus-table {
+    font-size: 0.8em; /* Further reduce font size */
+  }
+
+  .bus-table th, .bus-table td {
+    padding: 5px; /* Reduce padding more */
+  }
+}

@@ -1,0 +1,169 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+}
+
+.nagoa-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f4f4f9;
+}
+
+.slideshow-container {
+  width: 100%;
+  height: 50vh;
+  position: relative;
+  overflow: hidden;
+  margin-top: 45px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slideshow-wrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 1.5s ease-in-out;
+}
+
+/* Ensure images take up full width */
+.slide {
+  min-width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+}
+
+/* Active slide is fully visible */
+.slide.active {
+  opacity: 1;
+}
+
+/* Navigation buttons */
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  z-index: 20;
+  transition: background-color 0.3s ease;
+}
+
+.prev:hover, .next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+/* Main content */
+.details {
+  width: 70%;
+  font-family: cursive;
+  color: #333;
+  transition: transform 0.3s ease;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.details p {
+  font-family: cursive;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-family: cursive;
+  color: #4a90e2;
+  text-align: center;
+  margin-bottom: 1em;
+  margin-top: 2em;
+  font-weight: 600;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.places-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 8%;
+}
+
+.places-details .details p {
+  padding-left: 50px;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+  text-align: justify;
+}
+
+.places-details .links {
+  font-family: cursive;
+  text-decoration: none;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.places-details .links ul a {
+  color: inherit;
+  font-family: cursive;
+  font-size: 1.5em;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.links ul {
+  font-family: cursive;
+  list-style-type: none;
+}
+
+.places-details .links ul a:hover {
+  color: #00aeff;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .details h1 {
+    font-size: 2rem;
+  }
+
+  .details p {
+    font-size: 1rem;
+  }
+  
+  .prev, .next {
+    padding: 8px 12px;
+    font-size: 1.2rem;
+  }
+}
