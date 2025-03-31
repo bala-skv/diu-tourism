@@ -1,2 +1,2 @@
 # diu-tourism
-hello1234
+hello
