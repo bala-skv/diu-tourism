@@ -1,5 +1,5 @@
 import React from "react";
-import Todo from "../assets/direct-hit.png";
+// import Todo from "../assets/direct-hit.png";
 
 import "./TaskColumn.css";
 import TaskCard from "./TaskCard";

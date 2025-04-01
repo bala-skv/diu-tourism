@@ -18,6 +18,8 @@
     "mysql2": "^3.14.0",
     "nodemon": "^3.1.9",
     "react": "^19.0.0",
+    "react-date-picker": "^11.0.0",
+    "react-datepicker": "^8.2.1",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.4.0",
     "react-scripts": "5.0.1",
