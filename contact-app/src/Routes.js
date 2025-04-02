@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import Nagoa from "./components/Places/Nagoa";
-import Feedb from "./components/Places/Feedb";
 import Ghoghla from "./components/Places/Ghoghla";
 import Chakratirth from "./components/Places/Chakratirth";
 import DiuFort from "./components/Places/DiuFort";

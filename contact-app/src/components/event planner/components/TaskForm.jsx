@@ -58,6 +58,6 @@ const TaskForm = ({ setTasks }) => {
       </form>
     </header>
   );
-};
+}
 
 export default TaskForm;

@@ -16,3 +16,17 @@
     width: 33.33%;
     margin: 20px;
 }
+
+.save-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto; /* Centers the button horizontally
+    /* padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;  */
+}

@@ -6,6 +6,7 @@
     padding: 15px;
     margin-bottom: 15px 0;
     cursor: grab;
+    background-color: greenyellow;
 }
 
 .task_card:active{

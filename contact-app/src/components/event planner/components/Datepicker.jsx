@@ -13,7 +13,8 @@ const Datepicker = ({setDate}) => {
 
   return (
     <div class="DP">
-        <h4>Select Date of visit</h4>
+        <h4>Select Date of visit:  </h4>
+        <br />
         <DatePicker 
             selected={selectedDate}
             onChange={handleDateChange}

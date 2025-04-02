@@ -10,7 +10,7 @@ router.post("/", (req, res) => {
     return res.status(400).json({ error: "user_name and password are required" });
   }
 
-  const sql = "SELECT user_name, user_password FROM users WHERE user_name = ? AND user_password = ?";
+  const sql = "SELECT user_name, user_password,date_of_trip FROM users WHERE user_name = ? AND user_password = ?";
   db.query(sql, [user_name, password], (err, results) => {
     if (err) return res.status(500).json({ error: err.message });
 
@@ -20,6 +20,7 @@ router.post("/", (req, res) => {
 
     // ✅ Store user details in session
     req.session.user = results[0];
+    console.log(req.session.user);
     res.json({ message: "Login successful", user: req.session.user });
   });
 });

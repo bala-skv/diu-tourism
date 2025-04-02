@@ -35,6 +35,7 @@ const restaurant = require("./routes/restaurant");
 const feedback = require("./routes/feedback");
 const user_login = require("./routes/user_login");
 const user_signup = require("./routes/user_signup");
+const event_plan= require("./routes/EventPlanner")
 
 // ✅ Corrected Route Mappings
 app.use("/login", user_login);
@@ -45,6 +46,7 @@ app.use("/localbus", localbus);
 app.use("/restaurant", restaurant);
 app.use("/statebus", statebus);
 app.use("/admin", admin);
+app.use("/eventplan",event_plan);
 app.use("/msg", feedback); // ✅ Handles dynamic `placename` inside `feedback.js`
 
 // ✅ Login Route (Set Session)
