@@ -34,6 +34,32 @@ router.get("/session", (req, res) => {
   }
 });
 
+router.post("/update", (req, res) => {
+  const { date_of_trip } = req.body;
+
+  if (!req.session.user) {
+    return res.status(401).json({ success: false, error: "User not logged in" });
+  }
+
+  const user_name = req.session.user.user_name;
+
+  // ✅ Ensure date is saved without timezone issues
+  const formattedDate = new Date(date_of_trip).toISOString().split("T")[0];
+
+  const sql = "UPDATE users SET date_of_trip = ? WHERE user_name = ?";
+  db.query(sql, [formattedDate, user_name], (err, result) => {
+    if (err) return res.status(500).json({ success: false, error: err.message });
+
+    // ✅ Update session to avoid mismatch after saving
+    req.session.user.date_of_trip = formattedDate;
+
+    res.json({ success: true, message: "Date updated successfully", updatedDate: formattedDate });
+  });
+});
+
+
+
+
 // ✅ Logout Route
 router.post("/logout", (req, res) => {
   req.session.destroy((err) => {

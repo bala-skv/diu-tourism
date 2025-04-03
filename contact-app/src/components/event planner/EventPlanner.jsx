@@ -11,7 +11,7 @@ import Navbar from "../Navbar/Navbar";
 import Datepicker from "./components/Datepicker";
 
 const EventPlanner = () => {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([]); 
   const [ActiveCard, setActiveCard] = useState(null);
   const [user, setUser] = useState(null);
 
@@ -21,19 +21,27 @@ const EventPlanner = () => {
         const response = await axios.get("http://localhost:5000/login/session", { withCredentials: true });
         if (response.data.loggedIn) {
           setUser(response.data.user);
-          alert(user.date_of_trip);
+          console.log("User logged in:", response.data.user);
+  
+          // ✅ Convert date to local timezone correctly
+          if (response.data.user.date_of_trip) {
+            const localDate = new Date(response.data.user.date_of_trip ); // Force local time
+            setSelectedDate(localDate);
+          }
         }
       } catch (error) {
         console.error("Session check failed:", error);
       }
     };
-
-    checkSession(); // Call function on mount
-  }, []); // Empty dependency array runs effect only on mount
+  
+    checkSession();
+  }, []);
+  
+  
 
   
   useEffect(() => {
-    axios.get("http://localhost:5000/eventplan/")
+    axios.get("http://localhost:5000/eventplan/", { withCredentials: true })
       .then(response => {
         console.log("Fetched Data:", response.data);
         
@@ -50,33 +58,39 @@ const EventPlanner = () => {
       });
   }, []);
 
+  // 
   const saveTasksToDatabase = async () => {
-    if (!selectedDate) {
-      alert("Please select a date before saving.");
-      return; // Stop execution if no date is selected
-    }
+  try {
+    const tasksToSave = tasks.map(task => ({
+      activity: task.task,
+      column_name: task.status
+    }));
+    const adjustedDate = new Date(selectedDate.getTime() - selectedDate.getTimezoneOffset() * 60000);
+    const dateToSave = adjustedDate.toISOString().split("T")[0];
+    console.log("hello",dateToSave);
+    console.log("Saving tasks:", JSON.stringify(tasksToSave, null, 2));
+    console.log("Saving date:", dateToSave);
+
+    // ✅ Save tasks
+    const taskResponse = await axios.post("http://localhost:5000/eventplan/save", { tasks: tasksToSave }, { withCredentials: true });
+
+
+    if (!taskResponse.data.success) throw new Error("Failed to update tasks");
+
+    // ✅ Save date
+    const dateResponse = await axios.post("http://localhost:5000/login/update", { date_of_trip: dateToSave }, { withCredentials: true });
+
+    if (!dateResponse.data.success) throw new Error("Failed to update date");
+
+    alert("Tasks and date saved successfully!"); // 🛠 Alert should now work
+
+  } catch (error) {
+    console.error("Error saving tasks or date:", error);
+    alert("Failed to save changes: " + (error.response?.data?.error || error.message));
+  }
+};
+
   
-    try {
-      const tasksToSave = tasks.map(task => ({
-        activity: task.task,
-        column_name: task.status
-      }));
-  
-      console.log("Sending to server:", JSON.stringify(tasksToSave, null, 2));
-  
-      const response = await axios.post("http://localhost:5000/eventplan/save", { tasks: tasksToSave });
-  
-      if (response.data.success) {
-        console.log("Tasks saved successfully!");
-        alert("Changes saved!");
-      } else {
-        throw new Error("Failed to update tasks");
-      }
-    } catch (error) {
-      console.error("Error saving tasks:", error);
-      alert("Failed to save changes: " + (error.response?.data?.error || error.message));
-    }
-  };
   
   
   const handleDelete = (taskIndex) => {
@@ -97,26 +111,23 @@ const EventPlanner = () => {
   };
   
   const [selectedDate, setSelectedDate] = useState(null);
-  const DateString = selectedDate
-    ? selectedDate.toLocaleDateString("en-GB")
-    : "None";
-    
-  let date2 = selectedDate ? new Date(selectedDate) : null;
-  if (date2) {
-    date2.setDate(date2.getDate() + 1);
-  }
-  const DateString2 = date2
-    ? date2.toLocaleDateString("en-GB")
-    : "None";
-    
-  let date3 = selectedDate ? new Date(selectedDate) : null;
-  if (date3) {
-    date3.setDate(date3.getDate() + 2);
-  }
-  const DateString3 = date3
-    ? date3.toLocaleDateString("en-GB")
-    : "None";
-    
+
+// Ensure selectedDate is correctly formatted
+const DateString = selectedDate
+  ? new Date(selectedDate.getTime() - selectedDate.getTimezoneOffset() * 60000).toLocaleDateString("en-GB")
+  : "None";
+
+// Function to adjust for UTC correctly
+const getAdjustedDate = (baseDate, offset) => {
+  if (!baseDate) return null;
+  const newDate = new Date(baseDate.getTime() - baseDate.getTimezoneOffset() * 60000); // Adjust to local time
+  newDate.setDate(newDate.getDate() + offset); // Now apply offset
+  return newDate.toLocaleDateString("en-GB");
+};
+
+const DateString2 = getAdjustedDate(selectedDate, 1) || "None";
+const DateString3 = getAdjustedDate(selectedDate, 2) || "None";
+
   return (
     <div className="app">
       <Navbar />
@@ -133,8 +144,8 @@ const EventPlanner = () => {
           onDrop={onDrop}
           />
         <TaskColumn
-          title={DateString}
-          icon={doingIcon}
+          title={DateString }
+          icon={doingIcon} 
           tasks={tasks}
           status="day1"
           handleDelete={handleDelete}
